@@ -1,6 +1,9 @@
+
 # 🤖 ROS Multi-Language Project
 
 This project demonstrates a hybrid **ROS1** system where some nodes are written in **C++** for performance and others in **Python** for rapid development and scripting. It shows how to integrate both languages in a single ROS workspace.
+
+---
 
 ## 📌 Overview
 
@@ -13,21 +16,26 @@ This repository sets up a basic example with communication between C++ and Pytho
 
 ---
 
-## 🗂 Project Structure
+## 🧩 Project Layout
 
-\`\`\`
+```
 ros_workspace/
 ├── src/
 │   ├── cpp_node_pkg/
-│   │   ├── src/my_cpp_node.cpp
 │   │   ├── include/cpp_node_pkg/
-│   │   └── CMakeLists.txt
+│   │   ├── src/my_cpp_node.cpp
+│   │   ├── CMakeLists.txt
+│   │   └── package.xml
 │   ├── python_node_pkg/
 │   │   ├── scripts/my_python_node.py
-│   │   └── setup.py
+│   │   ├── setup.py
+│   │   └── package.xml
+│   └── multi_launch/
+│       └── launch/
+│           └── system.launch
 ├── CMakeLists.txt
 └── package.xml
-\`\`\`
+```
 
 ---
 
@@ -36,83 +44,91 @@ ros_workspace/
 Make sure you have:
 
 - ROS 1 (e.g., **Noetic** or **Melodic**) installed
-- \`catkin\` tools (\`catkin_make\`, \`rosrun\`, \`rospack\`, etc.)
+- `catkin` tools (`catkin_make`, `rosrun`, `rospack`, etc.)
 - Python 3 support in ROS (for Noetic)
 
 ---
 
 ## 🛠️ Building the Workspace
 
-\`\`\`bash
-# Clone and enter workspace
+```bash
+# Clone the project
 git clone https://github.com/yourusername/ros-multi-lang-project.git
 cd ros-multi-lang-project
 
-# Source your ROS installation
+# Source ROS setup
 source /opt/ros/noetic/setup.bash
 
-# Build the workspace
+# Build
 catkin_make
 
-# Source the workspace
+# Source your workspace
 source devel/setup.bash
-\`\`\`
+```
 
 ---
 
-## 🚀 Running the Nodes
+## 🚀 Running the System
 
-### 1. Launch ROS Master
+### Option 1: Run Nodes Manually
 
-\`\`\`bash
+```bash
 roscore
-\`\`\`
+```
 
-### 2. Run C++ Node
+Then, in new terminals:
 
-\`\`\`bash
+```bash
+source devel/setup.bash
 rosrun cpp_node_pkg my_cpp_node
-\`\`\`
+```
 
-This node will publish sensor-like data to \`/sensor_data\`.
-
-### 3. Run Python Node
-
-Open a new terminal:
-
-\`\`\`bash
+```bash
 source devel/setup.bash
 rosrun python_node_pkg my_python_node.py
-\`\`\`
+```
 
-This node subscribes to \`/sensor_data\`, processes it, and publishes a response on \`/control_command\`.
+### Option 2: Launch Everything
+
+```bash
+roslaunch multi_launch system.launch
+```
+
+This launch file starts both C++ and Python nodes automatically.
 
 ---
 
-## 🔁 Topic Communication Example
+## 🔁 Topics Used
 
 | Topic              | Type               | Publisher         | Subscriber         |
 |--------------------|--------------------|-------------------|--------------------|
-| \`/sensor_data\`     | \`std_msgs/Int32\`   | \`cpp_node_pkg\`     | \`python_node_pkg\`  |
-| \`/control_command\` | \`std_msgs/String\` | \`python_node_pkg\`  | \`cpp_node_pkg\`      |
+| `/sensor_data`     | `std_msgs/Int32`   | `cpp_node_pkg`     | `python_node_pkg`  |
+| `/control_command` | `std_msgs/String` | `python_node_pkg`  | `cpp_node_pkg`      |
 
 You can observe messages with:
 
-\`\`\`bash
+```bash
 rostopic echo /sensor_data
 rostopic echo /control_command
-\`\`\`
+```
 
 ---
 
-## ✅ Testing
+## 🧪 Testing
 
-To run any unit or integration tests (if added):
+If you have tests defined in the packages:
 
-\`\`\`bash
+```bash
 catkin_make run_tests
-\`\`\`
+```
 
 ---
 
+## 📄 License
 
+This project is licensed under the **MIT License**.  
+Feel free to reuse, modify, and build upon it.
+
+---
+
+© 2025 ROS Multi-Language Contributors
