@@ -122,17 +122,6 @@ If you have tests defined in the packages:
 catkin_make run_tests
 ```
 
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**.  
-Feel free to reuse, modify, and build upon it.
-
----
-
-© 2025 ROS Multi-Language Contributors
-
 
 ---
 
