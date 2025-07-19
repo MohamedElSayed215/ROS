@@ -132,3 +132,85 @@ Feel free to reuse, modify, and build upon it.
 ---
 
 © 2025 ROS Multi-Language Contributors
+
+
+---
+
+## 🧠 Advanced Details
+
+### 🔄 Message Flow
+
+This example simulates a simple flow:
+1. The **C++ node** publishes a counter on `/sensor_data` every second.
+2. The **Python node** listens to `/sensor_data`, logs the data, and responds with a message on `/control_command`.
+3. The **C++ node** can optionally subscribe to `/control_command` to act upon it.
+
+This simulates real robotic systems where sensors are polled, then logic is applied, and then commands are sent back.
+
+### 🧱 Custom Message Types (Optional)
+
+You can define your own `.msg` files if needed.
+
+Example:
+```bash
+roscd cpp_node_pkg/msg
+echo -e "int32 id
+float32 temperature" > Sensor.msg
+```
+
+Update `package.xml` and `CMakeLists.txt` accordingly.
+
+### 🧪 Unit Test Example (Python)
+
+You can test your Python node with `rostest`:
+
+**test/test_sensor_processing.py**
+```python
+import unittest
+import rospy
+from std_msgs.msg import Int32
+
+class TestSensorProcessing(unittest.TestCase):
+    def test_basic_logic(self):
+        # Example test logic
+        self.assertTrue(1 + 1 == 2)
+```
+
+Then add this test in `CMakeLists.txt` or run via:
+```bash
+rostest python_node_pkg test_sensor_processing.test
+```
+
+---
+
+## 🧰 Useful ROS Commands
+
+| Command                            | Description                              |
+|------------------------------------|------------------------------------------|
+| `rosnode list`                     | List active nodes                        |
+| `rostopic list`                    | List all topics                          |
+| `rostopic echo /topic_name`        | Print topic messages                     |
+| `rosrun rqt_graph rqt_graph`       | Visualize ROS node connections           |
+| `roslaunch pkg_name file.launch`   | Launch multiple nodes                    |
+| `rosmsg show std_msgs/String`      | Show message format                      |
+| `rosservice list`                  | List active services                     |
+| `rosparam get /param_name`         | Get parameter from parameter server      |
+
+---
+
+## 🚀 Suggested Enhancements
+
+- Add **parameter server** usage to make nodes configurable without code changes.
+- Use **actionlib** if you need goal-feedback-result patterns (e.g., motion planning).
+- Integrate with **RViz** or **rqt_plot** for visual debugging.
+- Add **logging** and **error handling** to make the system robust.
+
+---
+
+## 🌐 Useful Links
+
+- [ROS Wiki](http://wiki.ros.org)
+- [ROS Tutorials](http://wiki.ros.org/ROS/Tutorials)
+- [catkin tools](https://catkin-tools.readthedocs.io/en/latest/)
+- [rqt_graph](http://wiki.ros.org/rqt_graph)
+
