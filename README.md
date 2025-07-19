@@ -1,4 +1,3 @@
-cat << 'EOF' > README.md
 # 🤖 ROS Multi-Language Project
 
 This project demonstrates a hybrid **ROS1** system where some nodes are written in **C++** for performance and others in **Python** for rapid development and scripting. It shows how to integrate both languages in a single ROS workspace.
